@@ -1,6 +1,10 @@
 
 import streamlit  as st
+from typing import Callable
+from utilities import *
 from consts import BASE_DIR
+from streamlit.delta_generator import DeltaGenerator
+from streamlit import logger
 
 
 css = open(f"{BASE_DIR}/app/css/all-page.css").readlines()
@@ -11,54 +15,21 @@ st.markdown(f"<style>{css}</style>", unsafe_allow_html=True)
 st.header("Don't drink and sing 🍹🎤", divider=True)
 
 
+def on_spotify_login() :
+    st.text("Du hast den Button geklickt")
 
-
-
-
-col_left, col_mid, col_right = st.columns(3)
-
-
-with col_mid:
-    st.image(f"{BASE_DIR}/images/spotify-icon-name/img-small.png")
-
-
-
-
-
-
-
-st.button("Login with Spotify")
-
-
-
-
-
-
-
-def display_in_middle(components : list):
-    
-    if (len(components) < 1):
-        return
-    
-    columns = st.columns(len(components) + 2    )
-
-
-
-    counter = 1
-    for component in components:
-        component(columns[counter])
-        counter += 1
-    
-
-
-display_in_middle([
-    lambda col : col.button("Hello")
+display_in_row([
+    lambda col : col.image(f"{BASE_DIR}/images/spotify-icon-name/img-small.png"),
+    lambda col : col.button("Login with Spotify", on_click=on_spotify_login)
 ])
 
 
+display_in_row([
+    lambda col : col.button("Hello"),
+])
+
+
+get_app_logger().info("Hello")
 
 
 
-
-
-st.html("<span>hello</span>")
