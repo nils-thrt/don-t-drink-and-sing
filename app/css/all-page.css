@@ -1,0 +1,10 @@
+
+
+[data-testid] {
+    display: block;
+    margin: auto;
+}
+
+*{
+    display: None;
+}
