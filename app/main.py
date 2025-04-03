@@ -7,10 +7,16 @@ from streamlit.delta_generator import DeltaGenerator
 from streamlit import logger
 
 
-css = open(f"{BASE_DIR}/app/css/all-page.css").readlines()
-st.markdown(f"<style>{css}</style>", unsafe_allow_html=True)
 
 
+
+st.title('A Random App')
+st.write('Look at the pretty waves')
+
+with open(f"{BASE_DIR}/app/css/all-page.css") as stylesheet:
+    css = stylesheet.read()
+
+st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
 
 st.header("Don't drink and sing 🍹🎤", divider=True)
 
@@ -26,7 +32,6 @@ _, button_was_clicked = display_in_row([
 
 if (button_was_clicked) :
     get_app_logger().info("Hat funktioniert!")
-    st.audio(f"{BASE_DIR}/ign/patrick_output.wav")
 
 
 display_in_row([

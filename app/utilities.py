@@ -4,7 +4,7 @@ from typing import Callable
 from streamlit.delta_generator import DeltaGenerator
 from streamlit import logger
 
-from app.consts import BASE_DIR
+from consts import BASE_DIR
 
 def display_in_row( components : list[Callable[[DeltaGenerator], object]]):
     
