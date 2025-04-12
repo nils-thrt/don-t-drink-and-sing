@@ -12,13 +12,13 @@ def home():
 
 # Optional: Wenn du das Skript außerhalb der GCP-Umgebung ausführst
 import os
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "ign/firebase-adminsdk-fbsvc-6c538dfd4c.json"
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/etc/secrets/firebase-adminsdk.json"
 
 # Firestore-Client initialisieren
 db = firestore.Client()
 
 # Beispiel: Dokument in einer Collection speichern
-doc_ref = db.collection("users").document("user1")
+doc_ref = db.collection("users").document("max")
 doc_ref.set({
     "name": "Max Mustermann",
     "email": "max@example.com"
