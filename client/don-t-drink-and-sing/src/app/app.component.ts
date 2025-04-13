@@ -1,5 +1,4 @@
 
-
 import { Component } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
@@ -11,7 +10,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class AppComponent {
 
   constructor(private http: HttpClient) { }
-  
+
   private upcomingTracks = [
     { name: 'Track 1' },
     { name: 'Track 2' },
