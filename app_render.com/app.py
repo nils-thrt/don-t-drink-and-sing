@@ -1,14 +1,26 @@
-from flask import Flask, render_template
+from flask import Flask, jsonify, render_template
 from google.cloud import firestore
+
+
+
 
 app = Flask(__name__)
 
-@app.route("/")
+@app.route("/login")
 def home():
-    return render_template("html/index.html")
+    return jsonify({"message": "Hello World!"})
 
 
 
+
+
+@app.after_request
+def add_header(response):
+    
+    response.headers["Access-Control-Allow-Origin"] = "http://127.0.0.1:4200" 
+    response.headers["Access-Control-Allow"] = "*"
+    response.headers["Content-Type"] = "application/json"
+    return response
 
 # Optional: Wenn du das Skript außerhalb der GCP-Umgebung ausführst
 import os

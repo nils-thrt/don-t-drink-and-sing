@@ -1,12 +1,28 @@
 
-import { Component } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Component, NgModule } from '@angular/core';
+import { HttpClient, HttpClientModule, HttpHeaders, provideHttpClient, withNoXsrfProtection } from '@angular/common/http';
+import { Consts } from  "../app-config";
+
+
+
+import { ServerResponse } from 'http';
+import { log } from 'console';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: "./app.component.html"
+  selector: "app-component",
+  template: `
+    
+      
+          <span>Upcoming Tracks</span>
+          <button class="btn btn-primary" (click)="this.login()" type="button">Click me!</button>
+   
+ 
+  `,
+  imports: [HttpClientModule],
+  providers: [
+    
+  ]
 })
-  
 export class AppComponent {
 
   constructor(private http: HttpClient) { }
@@ -17,10 +33,16 @@ export class AppComponent {
     { name: 'Track 3' },]
 
   login() {
+    console.log("Hello from login");
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+      headers: new HttpHeaders({ 
+        'Content-Type': 'application/json',
+        "Access-Control-Allow" : "*",
+        // "Access-Control-Allow-Origin" : "*",
+        "crossdomain": "true",
+      })
     };
-    this.http.post('http://localhost:3000/api/login', { username: 'admin', password: 'admin' }, httpOptions)
+    this.http.get(Consts.SERVER_URL + "/login", httpOptions)
       .subscribe((response) => {
         console.log(response);
       }, (error) => {
@@ -28,3 +50,8 @@ export class AppComponent {
       });
   }
 }
+
+
+
+
+

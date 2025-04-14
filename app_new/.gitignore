@@ -1,3 +1,9 @@
+# Ignore 
+ign/*
+!ign/.gitkeep
+
+
+
 # Logs
 logs
 *.log
