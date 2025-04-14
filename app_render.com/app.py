@@ -1,16 +1,60 @@
 from flask import Flask, jsonify, render_template
 from google.cloud import firestore
 from flask_cors import CORS, cross_origin
+from spotipy.oauth2 import SpotifyOAuth
 
-
+from ign.spotify_secrets import SPOTIFY_CLIENT_ID, SPOTIFY_SECRET
 
 app = Flask(__name__)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
-@cross_origin()
+
+sp_oauth = SpotifyOAuth(
+    client_id=SPOTIFY_CLIENT_ID,
+    client_secret=SPOTIFY_SECRET,
+    redirect_uri="http://localhost:4200/spotify-callback",
+    scope="user-read-private user-read-email"
+    
+)
+
+
+
+    
+
+
+
 @app.route("/login")
 def home():
     return jsonify({"message": "Hello World!"})
+
+@app.route("/getSpotifyAuthorizationLink")
+def getSpotifyAuthorizationLink():
+
+    authorizationUrl = 'https://accounts.spotify.com/authorize?'
+    authorizationUrl += "response_type=code"
+    authorizationUrl += "&client_id=" + SPOTIFY_CLIENT_ID
+    authorizationUrl += "&scope=user-read-private+user-read-email+streaming"
+    authorizationUrl += "&redirect_uri=http://localhost:4200/spotify-callback"
+
+    return jsonify({"link": authorizationUrl})
+
+
+
+@app.route("/requestAccessToken/{resp_code}", methods=["POST"])
+def requestAccessToken():
+
+    sp_oauth.get_access_token(as_dict=True)
+    authorizationUrl = 'https://accounts.spotify.com/authorize?'
+    authorizationUrl += "response_type=code"
+    authorizationUrl += "&client_id=" + SPOTIFY_CLIENT_ID
+    authorizationUrl += "&scope=user-read-private+user-read-email"
+    authorizationUrl += "&redirect_uri=http://localhost:4200/spotify-callback"
+
+    return jsonify({"link": authorizationUrl})
+
+
+
+
 
 
 @app.after_request

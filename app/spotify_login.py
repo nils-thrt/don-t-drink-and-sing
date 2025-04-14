@@ -33,6 +33,16 @@ sp_oauth = SpotifyOAuth(
 auth_url = sp_oauth.get_authorize_url()
 
 
+sp_oauth.get_authorize_url
+  res.redirect('https://accounts.spotify.com/authorize?' +
+    querystring.stringify({
+      response_type: 'code',
+      client_id: client_id,
+      scope: scope,
+      redirect_uri: redirect_uri,
+      state: state
+    }));
+
 
 st.markdown("<span>Hello")
 st.html("<a href='www.google.com'</a>")
